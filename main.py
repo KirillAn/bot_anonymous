@@ -1,3 +1,5 @@
+import os
+import logging
 from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
 from telegram.ext import (
     ApplicationBuilder,
@@ -7,7 +9,12 @@ from telegram.ext import (
     ContextTypes,
     filters,
 )
-import os
+
+# Настройка логирования
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Получаем токен и Chat ID из переменных окружения
 TOKEN = os.getenv('BOT_TOKEN')
 ADMIN_CHAT_ID = os.getenv('ADMIN_CHAT_ID')
 
@@ -15,9 +22,6 @@ if not TOKEN or not ADMIN_CHAT_ID:
     logger.error("Переменные окружения BOT_TOKEN и ADMIN_CHAT_ID должны быть установлены")
     exit(1)
 
-
-
-# Определяем состояния для ConversationHandler
 CHOOSING, TYPING_STORY = range(2)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
@@ -63,7 +67,6 @@ async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 def main():
     application = ApplicationBuilder().token(TOKEN).build()
 
-    # Определяем ConversationHandler
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
         states={
@@ -79,6 +82,7 @@ def main():
 
     application.add_handler(conv_handler)
 
+    logger.info('Бот запущен')
     application.run_polling()
 
 if __name__ == '__main__':
