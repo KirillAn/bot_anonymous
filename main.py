@@ -18,9 +18,16 @@ logger = logging.getLogger(__name__)
 TOKEN = os.getenv('BOT_TOKEN')
 ADMIN_CHAT_ID = os.getenv('ADMIN_CHAT_ID')
 
-if not TOKEN or not ADMIN_CHAT_ID:
-    logger.error("Переменные окружения BOT_TOKEN и ADMIN_CHAT_ID должны быть установлены")
-    exit(1)
+if not TOKEN:
+    logger.error("Переменная BOT_TOKEN не установлена")
+else:
+    logger.info("BOT_TOKEN успешно получен")
+
+if not ADMIN_CHAT_ID:
+    logger.error("Переменная ADMIN_CHAT_ID не установлена")
+else:
+    logger.info("ADMIN_CHAT_ID успешно получен")
+
 
 CHOOSING, TYPING_STORY = range(2)
 
