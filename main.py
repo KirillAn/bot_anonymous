@@ -8,11 +8,14 @@ from telegram.ext import (
     filters,
 )
 
-# Замените на ваш токен бота
-TOKEN = '7352900487:AAGv5z-EPLV2gzDeLs4Td1fB6TJHHdC4_Gk'
+TOKEN = os.getenv('BOT_TOKEN')
+ADMIN_CHAT_ID = os.getenv('ADMIN_CHAT_ID')
 
-# Замените на ваш Chat ID
-ADMIN_CHAT_ID = 186092708
+if not TOKEN or not ADMIN_CHAT_ID:
+    logger.error("Переменные окружения BOT_TOKEN и ADMIN_CHAT_ID должны быть установлены")
+    exit(1)
+
+
 
 # Определяем состояния для ConversationHandler
 CHOOSING, TYPING_STORY = range(2)
