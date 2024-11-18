@@ -7,7 +7,7 @@ from telegram.ext import (
     ContextTypes,
     filters,
 )
-
+import os
 TOKEN = os.getenv('BOT_TOKEN')
 ADMIN_CHAT_ID = os.getenv('ADMIN_CHAT_ID')
 
