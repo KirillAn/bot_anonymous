@@ -9,6 +9,10 @@ from telegram.ext import (
     ContextTypes,
     filters,
 )
+from dotenv import load_dotenv
+
+# Загрузка переменных из файла .env
+load_dotenv()
 
 # Настройка логирования
 logging.basicConfig(level=logging.INFO)
