@@ -19,20 +19,26 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 # Получаем токен и Chat ID из переменных окружения
+if os.path.exists('.env'):
+    load_dotenv()
+    print("Файл .env загружен.")
+else:
+    print("Файл .env не найден, загрузка переменных из системных переменных.")
+
 TOKEN = os.getenv('BOT_TOKEN')
 ADMIN_CHAT_ID = os.getenv('ADMIN_CHAT_ID')
 
 if not TOKEN:
-    logger.error("Переменная BOT_TOKEN не установлена")
+    print("Переменная BOT_TOKEN не установлена.")
+    exit(1)
 else:
-    logger.info("BOT_TOKEN успешно получен")
+    print("Переменная BOT_TOKEN загружена.")
 
 if not ADMIN_CHAT_ID:
-    logger.error("Переменная ADMIN_CHAT_ID не установлена")
+    print("Переменная ADMIN_CHAT_ID не установлена.")
+    exit(1)
 else:
-    logger.info("ADMIN_CHAT_ID успешно получен")
-
-
+    print("Переменная ADMIN_CHAT_ID загружена.")
 CHOOSING, TYPING_STORY = range(2)
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
